@@ -1,0 +1,5 @@
+.table-teal th {
+    background-color: #38b2ac;
+    /* Tailwind CSS teal-500 color */
+    color: white;
+}

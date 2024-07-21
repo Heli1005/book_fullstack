@@ -1,0 +1,8 @@
+.bg-gray-400:hover {
+    background-color: #a0aec0;
+    color: white;
+}
+
+.border-white:hover {
+    border-color: #e2e8f0;
+}

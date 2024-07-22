@@ -10,28 +10,30 @@ export const registerUser = async (req, res) => {
     }
     //if user exist
     const userExist = await User.findOne({ email })
-    if (userExist) {
-        res.status(400)
-        throw new Error('User already exists')
+    if (userExist) { 
+        return res.status(400).json({ error: 'User already exists' });
     }
-    //create user
-    const user = await User.create({
-        name,
-        email,
-        password
-    })
-
-    if (user) {
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            token: await generateWebToken(user._id)
+    try {
+        //create user
+        const user = await User.create({
+            name,
+            email,
+            password
         })
-    } else {
-        res.status(400);
-        throw new Error('Failed to create the user.')
+    
+        if (user) {
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                token: await generateWebToken(user._id)
+            })
+        } else { 
+            return res.status(400).json({ error: 'Failed to create the user.' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Server error' });
     }
 }
 
@@ -42,19 +44,22 @@ export const authUser = async (req, res) => {
         res.status(400);
         throw new Error('Please enter all fields')
     }
-    const user = await User.findOne({ email })// find user using email field
-    
-    if (user && (await user.matchPassword(password))) {// compare bcrypted entered password and stroed password 
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            token: await generateWebToken(user._id)
-        })
-    }
-    else {// user not found
-        res.status(400);
-        throw new Error('Invalid User or Password')
+    try {
+        const user = await User.findOne({ email })// find user using email field
+        
+        if (user && (await user.matchPassword(password))) {// compare bcrypted entered password and stroed password 
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                token: await generateWebToken(user._id)
+            })
+        }
+        else {// user not found
+            return res.status(400).json({ error: 'Invalid email or password' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Server error' });
     }
 }

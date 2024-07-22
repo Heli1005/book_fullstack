@@ -10,7 +10,7 @@ import BookFields from "../commonComponents/fieldsJson/BookFields";
 import { useAuth } from "../authentication/useAuthentication";
 import { toast } from 'react-toastify';
 
-const BookForm = ({ handleClose }) => {
+const BookForm = ({ handleClose }) => { // book form
 
   const dispatch = useDispatch()
   const { user } = useAuth()
@@ -40,19 +40,17 @@ const BookForm = ({ handleClose }) => {
         { ...values },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`, // Include the Bearer token
+            Authorization: `Bearer ${user.token}`, // Include the Bearer token that manage for only authenticated user can add book
           },
         }
       )
 
       await dispatch(addBook(response.data.data))
      await toast.success('Book added successfully!');
-      await handleClose()
     } catch (error) {
-      console.error('Error adding book:', error);
-      toast.error('Error adding book.');
-
+      await toast.error('Error adding book.');
     }
+    await handleClose()
   }
 
   return <>

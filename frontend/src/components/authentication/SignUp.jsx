@@ -20,7 +20,7 @@ const SignUp = () => {
     confirmPassword: ''
   }
 
-  const handleRegister = async (obj) => {
+  const handleRegister = async (obj, actions) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const url = apiUrl +'/api/user'
     let reqBody = { ...obj }
@@ -31,15 +31,8 @@ const SignUp = () => {
       await toast.success('Sign-up successful! You can now log in with your credentials.');
 
     } catch (error) {
-      if (error.response.status === 409) { // Conflict, usually for duplicate email
-        toast.error('Sign-up failed. An account with this email address already exists.');
-      } else if (error.response.status === 400) { // Bad Request, for invalid input
-        toast.error('Sign-up failed. Your password is too weak. Please use a stronger password.');
-      } else if (error.response.status === 422) { // Unprocessable Entity, for invalid data
-        toast.error('Sign-up failed. Please check your input and try again.');
-      } else {
-        toast.error('An error occurred while signing up. Please try again later.');
-      }
+      toast.error(error.response.data.error); 
+      actions.resetForm();
     }
   }
 
@@ -52,8 +45,8 @@ const SignUp = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={SignUpSchema}
-          onSubmit={(values) => {
-            handleRegister(values)
+          onSubmit={(values, actions) => {
+            handleRegister(values, actions)// handle registration
           }}
         >
           <Form>

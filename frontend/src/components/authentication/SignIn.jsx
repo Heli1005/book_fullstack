@@ -29,17 +29,8 @@ const SignIn = () => {
       await navigate('/')
       await handleLogin(response.data)
       await toast.success('Sign-in successful! Welcome back!');
-
-
     } catch (error) {
-      if (error.response.status === 401) {
-        toast.error('Sign-in failed. Please check your email and password and try again.');
-      } else if (error.response.status === 404) {
-        toast.error('Sign-in failed. No account found with this email address.');
-      } else {
-        toast.error('An error occurred while signing in. Please try again later.');
-      }
-
+      await toast.error(error.response.data.error); 
     }
   }
 
@@ -52,9 +43,9 @@ const SignIn = () => {
         <div className="px-10">
           <Formik
             initialValues={initialValues}
-            validationSchema={LoginSchema}
+            validationSchema={LoginSchema}// schema that manage for validation
             onSubmit={(values) => {
-              handleLoginBtn(values)
+              handleLoginBtn(values) // manage login btn
             }}
           >
             <Form>

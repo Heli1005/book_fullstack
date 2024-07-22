@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-const CustomModal = ({ children, title, body, footer = null }) => {
+const CustomModal = ({ children, title, body, show, handleShow, handleClose, footer = null }) => {
 
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+    // const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
     const customStyles = {
         modalDialog: {
             maxWidth: '80%',

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Button } from 'react-bootstrap';
 import "./booklist.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +10,9 @@ import BookForm from "./BookForm";
 
 const BookList = () => {
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const headerList = bookLists()// booklist header
   const data = [
     {
@@ -38,7 +41,10 @@ const BookList = () => {
       <h3 className="text-teal-700 ">Book List</h3>
       <CustomModal
         title='Add Book'
-        body={<BookForm />}
+        body={<BookForm handleClose={handleClose} />}
+        show={show}
+        handleClose={handleClose}
+        handleShow={handleShow}
       >
         <Button>Add Book</Button>
       </CustomModal>

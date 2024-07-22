@@ -3,9 +3,11 @@ import { Form, Formik } from "formik";
 import { bookSchema } from "./BookSchema";
 import CustomInput from "../commonComponents/CustomInput";
 import { Button } from "react-bootstrap";
+import Axios from "axios";
 
 
-const BookForm = () => {
+
+const BookForm = ({ handleClose }) => {
 
   let fieldObj = {
     title: {
@@ -31,8 +33,15 @@ const BookForm = () => {
     author: ''
   }
 
-  const handleAddBook = (values) => {
-
+  const handleAddBook = async(values) => {
+    const url ='/api/books/add'
+    try {
+      const response = await Axios.post(url, values);
+      console.log('Book added:', response.data);
+      await handleClose()
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
   }
 
   return <>

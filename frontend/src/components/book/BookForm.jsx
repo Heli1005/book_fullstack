@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Form, Formik } from "formik";
 import { bookSchema } from "./BookSchema";
 import CustomInput from "../commonComponents/CustomInput";
@@ -6,41 +6,44 @@ import { Button } from "react-bootstrap";
 import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { addBook } from "../redux/bookSlice";
-
-
+import BookFields from "../commonComponents/fieldsJson/BookFields";
+import { useAuth } from "../authentication/useAuthentication";
 
 const BookForm = ({ handleClose }) => {
 
-  let fieldObj = {
-    title: {
-      id: 'title',
-      name: 'Title',
-      isrequired: true
-    },
-    desc: {
-      id: 'desc',
-      name: 'Description',
-      isrequired: false
-    },
-    author: {
-      id: 'author',
-      name: 'Author',
-      isrequired: true
+  const dispatch = useDispatch()
+  const { user } = useAuth()
+  const fieldObj = BookFields
+  const titleInputRef = useRef(null);
+
+  useEffect(() => {
+
+    if (titleInputRef.current) {
+      titleInputRef.current.focus();
     }
-  }
+  }, []);
 
   let initialValues = {
     title: '',
     desc: '',
     author: ''
   }
-  const dispatch = useDispatch()
 
   const handleAddBook = async (values) => {
+
     const url = '/api/books/add'
+
     try {
-      const response = await Axios.post(url, values);
-      console.log('Book added:', response.data);
+      const response = await Axios.post(
+        url,
+        { ...values },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`, // Include the Bearer token
+          },
+        }
+      )
+
       await dispatch(addBook(response.data.data))
       await handleClose()
     } catch (error) {
@@ -53,12 +56,11 @@ const BookForm = ({ handleClose }) => {
       initialValues={initialValues}
       validationSchema={bookSchema}
       onSubmit={(values) => {
-        console.log("values", values);
         handleAddBook(values)
       }}
     >
       <Form>
-        <CustomInput field={fieldObj.title} />
+        <CustomInput field={fieldObj.title} ref={titleInputRef} />
         <CustomInput field={fieldObj.desc} />
         <CustomInput field={fieldObj.author} />
         <div className="d-flex justify-center gap-1 w-full">

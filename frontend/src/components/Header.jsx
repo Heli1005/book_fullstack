@@ -6,20 +6,15 @@ import useWindowDimens from "./commonComponents/useWindowDimens";
 import { useAuth } from "./authentication/useAuthentication";
 import "./header.css";
 
-
-
 const Header = () => {
     const navigate = useNavigate()
     const { width } = useWindowDimens();
     const { user, handleLogout } = useAuth()
 
     const handleLogoutBtn = async () => {
-        // Handle logout logic here
         await handleLogout()
         await navigate('/');
     };
-    console.log("user", user);
-    
 
     const list = {
         home: {
@@ -41,8 +36,6 @@ const Header = () => {
             as: 'label'
         }
     }
-
-
 
     return <>
         <Navbar className="bg-gray-300 px-3" expand="lg">

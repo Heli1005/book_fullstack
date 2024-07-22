@@ -7,6 +7,7 @@ import SignUp from "./components/authentication/SignUp";
 import BookList from "./components/book/BookList";
 import ErrorPage from "./ErrorPage";
 import Authentication from "./components/authentication/useAuthentication";
+import ValidUser from "./components/authentication/ValidUser";
 
 const App = () => {
   return <div className="bg-slate-100  vh-100">
@@ -16,11 +17,11 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/books" element={<BookList />} />
+        <Route path="/books" element={<ValidUser><BookList /></ValidUser>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Authentication>
-  </div>;
+  </div>
 };
 
 export default App;

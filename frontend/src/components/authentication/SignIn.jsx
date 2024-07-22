@@ -1,37 +1,25 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import { Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../commonComponents/CustomInput";
 import { LoginSchema } from "./SigninSchema";
 import { useAuth } from "./useAuthentication";
 import Axios from "axios";
-
+import Signin from "../commonComponents/fieldsJson/SigninFields";
 
 const SignIn = () => {
-  let fieldObj = {
-    email: {
-      id: 'email',
-      name: 'Email',
-      isrequired: true
-    },
-    password: {
-      id: 'password',
-      name: 'Password',
-      isrequired: true
-    }
-  }
+
+  const navigate = useNavigate()
+  const { handleLogin } = useAuth()
+  let fieldObj = Signin
+
   let initialValues = {
     email: '',
     password: '',
   }
 
-  const navigate = useNavigate()
-  const { handleLogin } = useAuth()
-
-
   const handleLoginBtn = async (obj) => {
-    console.log("obj", obj);
     const url = '/api/user/login'
     let reqBody = { ...obj }
     try {
@@ -41,13 +29,12 @@ const SignIn = () => {
 
     } catch (error) {
       console.log("error", error);
-
     }
   }
 
   return <>
     <div className="d-flex  justify-center w-full   mt-5 ">
-      <div className=" w-75 p-3 bg-white text-center shadow-md">
+      <div className=" w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl p-3 bg-white rounded-md text-center shadow-md">
         <div className="fs-3 my-2 text-teal-700 font-medium">
           <span>Sign In</span>
         </div>
@@ -56,8 +43,6 @@ const SignIn = () => {
             initialValues={initialValues}
             validationSchema={LoginSchema}
             onSubmit={(values) => {
-              console.log("values", values);
-
               handleLoginBtn(values)
             }}
           >
@@ -69,15 +54,15 @@ const SignIn = () => {
                   Login
                 </Button>
               </div>
-              {/* <div className="d-flex justify-end mt-3 text-teal-700">
-                <Link to={'/signin'}>Already have an account ?</Link>
-              </div> */}
+              <div className="d-flex justify-center mt-5 text-teal-700">
+                <Link to={'/signup'}>Sign up now to start creating your personalized booklist!</Link>
+              </div>  
             </Form>
           </Formik>
         </div>
       </div>
-    </div>;
-  </>;
+    </div>
+  </>
 };
 
 export default SignIn;

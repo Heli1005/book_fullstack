@@ -37,8 +37,6 @@ export const registerUser = async (req, res) => {
 
 export const authUser = async (req, res) => {
     const { email, password } = req.body
-    console.log("req.body", req.body);
-    
     
     if (!email || !password) {// field validation
         res.status(400);

@@ -5,30 +5,13 @@ import { SignUpSchema } from "./SignUpSchema";
 import CustomInput from "../commonComponents/CustomInput";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import SignUpFields from "../commonComponents/fieldsJson/SignUpFields";
 
 const SignUp = () => {
-  let fieldObj = {
-    name: {
-      id: 'name',
-      name: 'Name',
-      isrequired: true
-    },
-    email: {
-      id: 'email',
-      name: 'Email',
-      isrequired: true
-    },
-    password: {
-      id: 'password',
-      name: 'Password',
-      isrequired: true
-    },
-    confirmPassword: {
-      id: 'confirmPassword',
-      name: 'Confirm Password',
-      isrequired: true
-    },
-  }
+
+  const navigate = useNavigate()
+  const fieldObj = SignUpFields
+
   let initialValues = {
     name: '',
     email: '',
@@ -36,27 +19,21 @@ const SignUp = () => {
     confirmPassword: ''
   }
 
-  const navigate = useNavigate()
-
-
   const handleRegister = async (obj) => {
-    console.log("obj", obj);
     const url = '/api/user'
     let reqBody = { ...obj }
     delete reqBody.confirmPassword
     try {
       const data = await Axios.post(url, reqBody)
-      console.log("data", data);
       await navigate('/signin')
 
     } catch (error) {
       console.log("error", error);
-
     }
   }
 
   return <div className="d-flex  justify-center w-full   mt-5 ">
-    <div className=" w-75 p-3 bg-white text-center shadow-md">
+    <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl p-3 bg-white text-center rounded-md shadow-md">
       <div className="fs-3 my-2 text-teal-700 font-medium">
         <span>Sign Up</span>
       </div>

@@ -7,6 +7,7 @@ export default {
     password: {
         id: 'password',
         name: 'Password',
-        isrequired: true
+        isrequired: true,
+        type:'password'
     }
 }

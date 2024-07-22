@@ -8,6 +8,8 @@ import BookList from "./components/book/BookList";
 import ErrorPage from "./ErrorPage";
 import Authentication from "./components/authentication/useAuthentication";
 import ValidUser from "./components/authentication/ValidUser";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return <div className="bg-slate-100  vh-100">
@@ -21,6 +23,17 @@ const App = () => {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Authentication>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
   </div>
 };
 

@@ -12,11 +12,13 @@ export default {
     password: {
         id: 'password',
         name: 'Password',
-        isrequired: true
+        isrequired: true,
+        type:'password'
     },
     confirmPassword: {
         id: 'confirmPassword',
         name: 'Confirm Password',
-        isrequired: true
+        isrequired: true,
+        type:'password'
     },
 }

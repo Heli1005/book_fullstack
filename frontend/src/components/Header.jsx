@@ -5,6 +5,7 @@ import { BooklogSvg } from "../assets/SVG";
 import useWindowDimens from "./commonComponents/useWindowDimens";
 import { useAuth } from "./authentication/useAuthentication";
 import "./header.css";
+import { toast } from "react-toastify";
 
 const Header = () => {
     const navigate = useNavigate()
@@ -12,8 +13,13 @@ const Header = () => {
     const { user, handleLogout } = useAuth()
 
     const handleLogoutBtn = async () => {
-        await handleLogout()
-        await navigate('/');
+       try {
+         await handleLogout()
+         await navigate('/');
+         await toast.success('You have been logged out successfully. See you next time!');
+       } catch (error) {
+        await toast.error("Something went wrong")
+       }
     };
 
     const list = {

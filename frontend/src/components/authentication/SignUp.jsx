@@ -6,6 +6,7 @@ import CustomInput from "../commonComponents/CustomInput";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import SignUpFields from "../commonComponents/fieldsJson/SignUpFields";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
 
@@ -27,9 +28,18 @@ const SignUp = () => {
     try {
       const data = await Axios.post(url, reqBody)
       await navigate('/signin')
+      await toast.success('Sign-up successful! You can now log in with your credentials.');
 
     } catch (error) {
-      console.log("error", error);
+      if (error.response.status === 409) { // Conflict, usually for duplicate email
+        toast.error('Sign-up failed. An account with this email address already exists.');
+      } else if (error.response.status === 400) { // Bad Request, for invalid input
+        toast.error('Sign-up failed. Your password is too weak. Please use a stronger password.');
+      } else if (error.response.status === 422) { // Unprocessable Entity, for invalid data
+        toast.error('Sign-up failed. Please check your input and try again.');
+      } else {
+        toast.error('An error occurred while signing up. Please try again later.');
+      }
     }
   }
 

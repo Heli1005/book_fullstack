@@ -7,6 +7,7 @@ import { LoginSchema } from "./SigninSchema";
 import { useAuth } from "./useAuthentication";
 import Axios from "axios";
 import Signin from "../commonComponents/fieldsJson/SigninFields";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
 
@@ -21,15 +22,24 @@ const SignIn = () => {
 
   const handleLoginBtn = async (obj) => {
     const apiUrl = import.meta.env.VITE_API_URL;
-    const url = apiUrl+'/api/user/login'
+    const url = apiUrl + '/api/user/login'
     let reqBody = { ...obj }
     try {
       const response = await Axios.post(url, reqBody)
       await navigate('/')
       await handleLogin(response.data)
+      await toast.success('Sign-in successful! Welcome back!');
+
 
     } catch (error) {
-      console.log("error", error);
+      if (error.response.status === 401) {
+        toast.error('Sign-in failed. Please check your email and password and try again.');
+      } else if (error.response.status === 404) {
+        toast.error('Sign-in failed. No account found with this email address.');
+      } else {
+        toast.error('An error occurred while signing in. Please try again later.');
+      }
+
     }
   }
 
@@ -57,7 +67,7 @@ const SignIn = () => {
               </div>
               <div className="d-flex justify-center mt-5 text-teal-700">
                 <Link to={'/signup'}>Sign up now to start creating your personalized booklist!</Link>
-              </div>  
+              </div>
             </Form>
           </Formik>
         </div>

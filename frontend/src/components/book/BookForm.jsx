@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { addBook } from "../redux/bookSlice";
 import BookFields from "../commonComponents/fieldsJson/BookFields";
 import { useAuth } from "../authentication/useAuthentication";
+import { toast } from 'react-toastify';
 
 const BookForm = ({ handleClose }) => {
 
@@ -45,9 +46,12 @@ const BookForm = ({ handleClose }) => {
       )
 
       await dispatch(addBook(response.data.data))
+     await toast.success('Book added successfully!');
       await handleClose()
     } catch (error) {
       console.error('Error adding book:', error);
+      toast.error('Error adding book.');
+
     }
   }
 

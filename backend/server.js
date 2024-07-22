@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import books_route from "./routes/books.js";
 import connectDB from "./db/connect.js";
 
-
-
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+const uri = process.env.URI
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Server running successfully...')
@@ -18,7 +19,7 @@ app.use('/api/books', books_route)
 
 const start = async () => {
     try {
-       await connectDB()
+       await connectDB(uri)
        await app.listen(PORT, () => {
             console.log(`Server is running on ${PORT} port.`)
         })

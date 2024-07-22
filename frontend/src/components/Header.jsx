@@ -1,22 +1,25 @@
 import React from "react";
 import { Button, Container, Nav, Navbar, } from "react-bootstrap";
-import { Link, useNavigate,NavLink } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { BooklogSvg } from "../assets/SVG";
 import useWindowDimens from "./commonComponents/useWindowDimens";
 import { useAuth } from "./authentication/useAuthentication";
-import   "./header.css";
+import "./header.css";
 
 
 
 const Header = () => {
     const navigate = useNavigate()
     const { width } = useWindowDimens();
-    const { user } = useAuth()
+    const { user, handleLogout } = useAuth()
 
-    const handleLogout = () => {
+    const handleLogoutBtn = async () => {
         // Handle logout logic here
-        navigate('/logout');
+        await handleLogout()
+        await navigate('/');
     };
+    console.log("user", user);
+    
 
     const list = {
         home: {
@@ -52,14 +55,22 @@ const Header = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto w-full">
                     <CustomNavLink child={list.home} />
-                    <CustomNavLink child={list.booklist} />
                     {
-                        width > 768
+                        user
                             ?
-                            <Button className="bg-gray-400 border-white ml-auto font-bold" onClick={() => handleLogout()} >Log Out</Button>
-                            :
-                            <Nav.Link as={'label'} className={'font-bold px-2'} onClick={() => handleLogout()} >Log Out</Nav.Link>
+                            <>
+                                <CustomNavLink child={list.booklist} />
+                                {
+                                    width > 768
+                                        ?
+                                        <Button className="bg-gray-400 border-white ml-auto font-bold" onClick={() => handleLogoutBtn()} >Log Out</Button>
+                                        :
+                                        <Nav.Link as={'label'} className={'font-bold px-2'} onClick={() => handleLogoutBtn()} >Log Out</Nav.Link>
 
+                                }
+                            </>
+                            :
+                            <></>
                     }
                 </Nav>
             </Navbar.Collapse>

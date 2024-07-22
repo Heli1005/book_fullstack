@@ -9,7 +9,7 @@ import ErrorPage from "./ErrorPage";
 import Authentication from "./components/authentication/useAuthentication";
 
 const App = () => {
-  return <>
+  return <div className="bg-slate-100  vh-100">
     <Authentication>
       <Header />
       <Routes>
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Authentication>
-  </>;
+  </div>;
 };
 
 export default App;

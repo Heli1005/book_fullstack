@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import books_route from "./routes/books.js";
+import user_route from "./routes/user.js";
 import connectDB from "./db/connect.js";
 
 dotenv.config()
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/books', books_route)
+app.use('/api/user',user_route)
 
 const start = async () => {
     try {

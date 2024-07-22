@@ -7,8 +7,17 @@ const initialState = {
         error: '' 
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-    const response = await Axios.get('/api/books');
+
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async (token) => {
+    console.log("token", token);
+    
+    const response = await Axios.get('/api/books',{
+        headers: {
+            Authorization: `Bearer ${token}`, // Include the Bearer token
+        },
+    });
+    console.log("res", response);
+    
     return response.data;
 });
 

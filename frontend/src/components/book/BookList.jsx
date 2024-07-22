@@ -8,6 +8,7 @@ import { bookLists } from "./bookHeader";
 import BookForm from "./BookForm";
 import { fetchBooks } from "../redux/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../authentication/useAuthentication";
 
 
 
@@ -19,9 +20,10 @@ const BookList = () => {
   const dispatch = useDispatch()
   const headerList = bookLists()// booklist header
   const bookList = useSelector(state => state.books)
+  const {user}=useAuth()
 
   useEffect(() => {
-    dispatch(fetchBooks())
+    dispatch(fetchBooks(user.token))
 
   }, [])
 

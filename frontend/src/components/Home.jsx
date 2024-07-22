@@ -1,9 +1,10 @@
 import React from "react";
 import DashboardWithUser from "./DashboardWithUser";
 import DashboardWithoutUser from "./DashboardWithoutUser";
+import { useAuth } from "./authentication/useAuthentication";
 
 const Home = () => {
-    let user = true
+    let {user} = useAuth()
 
     return <>
         {

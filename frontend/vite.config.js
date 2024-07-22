@@ -9,6 +9,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000', // Your backend server URL
         port: 5000,
+        host: '0.0.0.0',
       },
     },
   },

@@ -4,6 +4,8 @@ import { bookSchema } from "./BookSchema";
 import CustomInput from "../commonComponents/CustomInput";
 import { Button } from "react-bootstrap";
 import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { addBook } from "../redux/bookSlice";
 
 
 
@@ -32,12 +34,14 @@ const BookForm = ({ handleClose }) => {
     desc: '',
     author: ''
   }
+  const dispatch=useDispatch()
 
   const handleAddBook = async(values) => {
     const url ='/api/books/add'
     try {
       const response = await Axios.post(url, values);
       console.log('Book added:', response.data);
+      await dispatch(addBook(response.data.data))
       await handleClose()
     } catch (error) {
       console.error('Error adding book:', error);

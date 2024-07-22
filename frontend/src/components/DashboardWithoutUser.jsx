@@ -1,12 +1,18 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const DashboardWithoutUser = () => {
-  const navigate = useNavigate()
-  return <div>
-    <Button onClick={() => navigate('/signin')}>Log In</Button>
-  </div>;
+  return <div className="bg-gradient-to-r from-teal-500 to-slate-400 w-full vh-100 d-flex align-items-center">
+    <Container className=" text-center ">
+      <h2 className="mb-4 fs-1 font-medium text-teal-700">Welcome to Book Dashboard</h2>
+      <p className="mb-4 font-mono">Explore a wide range of books and manage your collection efficiently. To get the best experience, please log in or register if you don't have an account.</p>
+      <div>
+        <Link to="/signin" className="btn btn-primary mr-3">Log In</Link>
+        <Link to="/signup" className="btn btn-secondary">Register</Link>
+      </div>
+    </Container>
+  </div>
 };
 
 export default DashboardWithoutUser;

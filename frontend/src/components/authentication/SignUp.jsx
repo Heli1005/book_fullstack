@@ -20,7 +20,8 @@ const SignUp = () => {
   }
 
   const handleRegister = async (obj) => {
-    const url = '/api/user'
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const url = apiUrl +'/api/user'
     let reqBody = { ...obj }
     delete reqBody.confirmPassword
     try {

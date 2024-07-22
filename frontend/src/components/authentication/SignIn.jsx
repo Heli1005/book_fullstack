@@ -20,7 +20,8 @@ const SignIn = () => {
   }
 
   const handleLoginBtn = async (obj) => {
-    const url = '/api/user/login'
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const url = apiUrl+'/api/user/login'
     let reqBody = { ...obj }
     try {
       const response = await Axios.post(url, reqBody)

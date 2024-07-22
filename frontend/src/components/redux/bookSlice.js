@@ -7,9 +7,9 @@ const initialState = {
         error: '' 
 }
 
-
+const apiUrl = import.meta.env.VITE_API_URL;
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async (token) => {
-    const response = await Axios.get('/api/books',{
+    const response = await Axios.get(`${apiUrl}/api/books`,{
         headers: {
             Authorization: `Bearer ${token}`, // Include the Bearer token
         },

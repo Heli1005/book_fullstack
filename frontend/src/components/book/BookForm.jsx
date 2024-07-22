@@ -30,8 +30,8 @@ const BookForm = ({ handleClose }) => {
   }
 
   const handleAddBook = async (values) => {
-
-    const url = '/api/books/add'
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const url = apiUrl+ '/api/books/add'
 
     try {
       const response = await Axios.post(

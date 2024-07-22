@@ -14,5 +14,6 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "start": "turbo run start"
-  }
+  },
+  "packageManager": "npm@8.1.0"
 }

@@ -14,4 +14,7 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    exclude: ['@reduxjs/toolkit'], // Exclude @reduxjs/toolkit from optimization
+  }
 })

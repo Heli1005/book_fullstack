@@ -1,15 +1,20 @@
-import express from "express";
 import dotenv from "dotenv";
+
+dotenv.config()
+
+import express from "express";
 import books_route from "./routes/books.js";
 import cors from 'cors';
 import user_route from "./routes/user.js";
 import connectDB from "./db/connect.js";
 
-dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
 const MONGODB_URI = process.env.MONGODB_URI
+
+console.log('MongoDB URI:', MONGODB_URI); // Log to debug
+console.log('PORT:', PORT); // Log to debug
 
 app.use(cors());
 app.use(express.json())

@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 const MONGODB_URI = process.env.MONGODB_URI
 
 console.log('MongoDB URI:', MONGODB_URI); // Log to debug
-console.log('PORT:', process.env.PORT); // Log to debug
+console.log('PORT:==>', process.env.PORT); // Log to debug
 
 app.use(cors());
 app.use(express.json())

@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 
-// const uri = process.env.URI
 // console.log("uri", uri);
 
 const connect = (uri) => {
-    console.log("Connect with DB",uri);
+    const mongoDB_uri = process.env.MONGODB_URI
+    console.log("uri", mongoDB_uri);
+    
+    console.log("process.env.MONGODB_URI", process.env.MONGODB_URI);
+    
+    console.log("Connect with DB", mongoDB_uri);
     return mongoose.connect(uri)
 }
 export default connect

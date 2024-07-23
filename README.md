@@ -5,6 +5,7 @@ run backend :
 npm run dev
 
 Libraried used : 
+
     1. Front End :
         1.1 mui/material (styling purpose)
         1.2 formik & Yup (validation purpose)
@@ -22,5 +23,5 @@ Libraried used :
 Features :
    1. SignIn & SignUp with authentication
    2. Add & List Book List
-   3. Filter, Search & Sort (Extra feature)
-   4. Dashboard with statistics (Extra feature)
+   <!-- 3. Filter, Search & Sort (Extra feature) -->
+   <!-- 4. Dashboard with statistics (Extra feature) -->
